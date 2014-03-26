@@ -65,3 +65,41 @@ jQuery Action (이하 액션) 은 웹프로그램(혹은 HTML)에서 주기적�
 * 액션은 자체적으로 공통(코어) 함수를 제공하고 있어, 반복적으로 사용되는 함수들을 사용할 수 있습니다.
 * 그외 플러그인 들도 제공하고 있습니다. 레이어 출력, 팝업 출력 등등...
 
+
+### 초기 설정
+
+```html
+<script type="text/javascript" language="javascript" src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" language="javascript" src="./jquery.action.js"></script>
+<script type="text/javascript" language="javascript" src="./jquery.action-ko.js"></script>
+<link rel="stylesheet" type="text/css"  href="./jquery.action.css" />
+```
+
+### 옵션 설면
+
+필수 옵션 : 없음
+시라니로 호출 순서 : prepare , beforeAction, beforeSend, afterSend, ajaxComplete, redirect
+
+```javascript
+        send : 'ajax' // 폼 전송 방식 ajax | submit
+      , formAttr : null // 폼 속성 변경할 경우 ex) action=index.html&method=get
+      , filter : null // (json) 입력 상자 필터 정의
+      , values : null // (string) input,select 등 입력 박스 값을 임의적으로 변경할 때 사용. ex) user_id=admin&title=가가
+      , direct : null // (string) 폼 데이터를 전송하지 않고 direct 값만 전송할 경우 사용 ex) mod=insert&idx=1 (ajax 인경우만 가능)
+      , param : null // (string) ajax 폼 데이터 전송할때 추가되어 함께 전송됨. (ajax 인경우만 가능)
+      , prepare : null // (funciton) 액션이 실행되기 전에 초기작업 설정
+      , beforeAction : null // (function) 액션 함수 최초에 호출됨.
+      , beforeSend : null // (function) 폼 데이터 전송 전 호출됨.
+      , afterSend : null // (function) ajax 전송 후 오류가 없을 경우(error = false) 호출됨. ajax 전송인 경우에만 사용 가능
+      , ajaxComplete : null // (function) ajax 완료 후 호출됨. ajax 전송인 경우에만 사용 가능
+      , redirect : null // (string) ajax 전송 후 페이지 이동 ex) index.php?test=mode 
+      , ask : '' // "confirm alert" 이 출려될때 사용될 xml 참조한 메세지 (ask_msg 와 같이 사용할 수 없음) jquery.action-ko.js 파일의 message 참조하여 출력
+      , ask_msg : '' // "confirm alert" 이 출력될때 사용될 임의적인 메세지 (ask 와 같이 사용할 수 없음) 변수 값 그대로 출력
+
+      , loading : true // ajax 전송 시 로딩화면 출력 여부
+      , loading_mode : '' // 로딩화면 위치 center | customer
+      , loading_target : null // 로딩화면을 표시할 id 엘리먼트 없을 경우 기본 로딩화면을 출력함.
+
+      , setAjax : { }
+```
+
