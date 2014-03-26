@@ -6,6 +6,7 @@
 * 필수 라이브러리 : jQuery 1.3.2 이상
 * 블로그 포스트 : 
 * jQuery Action 메뉴얼 : 
+* 이전 버전 : https://code.google.com/p/jquery-action
 
 jQuery Action (이하 액션) 은 웹프로그램(혹은 HTML)에서 주기적으로 사용되는 자바스크립트 함수들을 모아 재사용이 용이하게 라이브러리화한 자바스크립트 프로그램이며, jQuery 기반으로 개발된 플러그인입니다.
 
