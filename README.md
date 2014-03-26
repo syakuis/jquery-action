@@ -77,29 +77,169 @@ jQuery Action (이하 액션) 은 웹프로그램(혹은 HTML)에서 주기적�
 
 ### 옵션 설면
 
-필수 옵션 : 없음
-시라니로 호출 순서 : prepare , beforeAction, beforeSend, afterSend, ajaxComplete, redirect
+* 필수 옵션 : 없음
+* 옵션 함수 호출 순서 : prepare , beforeAction, beforeSend, afterSend, ajaxComplete, redirect
 
 ```javascript
-        send : 'ajax' // 폼 전송 방식 ajax | submit
-      , formAttr : null // 폼 속성 변경할 경우 ex) action=index.html&method=get
-      , filter : null // (json) 입력 상자 필터 정의
-      , values : null // (string) input,select 등 입력 박스 값을 임의적으로 변경할 때 사용. ex) user_id=admin&title=가가
-      , direct : null // (string) 폼 데이터를 전송하지 않고 direct 값만 전송할 경우 사용 ex) mod=insert&idx=1 (ajax 인경우만 가능)
-      , param : null // (string) ajax 폼 데이터 전송할때 추가되어 함께 전송됨. (ajax 인경우만 가능)
-      , prepare : null // (funciton) 액션이 실행되기 전에 초기작업 설정
-      , beforeAction : null // (function) 액션 함수 최초에 호출됨.
-      , beforeSend : null // (function) 폼 데이터 전송 전 호출됨.
-      , afterSend : null // (function) ajax 전송 후 오류가 없을 경우(error = false) 호출됨. ajax 전송인 경우에만 사용 가능
-      , ajaxComplete : null // (function) ajax 완료 후 호출됨. ajax 전송인 경우에만 사용 가능
-      , redirect : null // (string) ajax 전송 후 페이지 이동 ex) index.php?test=mode 
-      , ask : '' // "confirm alert" 이 출려될때 사용될 xml 참조한 메세지 (ask_msg 와 같이 사용할 수 없음) jquery.action-ko.js 파일의 message 참조하여 출력
-      , ask_msg : '' // "confirm alert" 이 출력될때 사용될 임의적인 메세지 (ask 와 같이 사용할 수 없음) 변수 값 그대로 출력
-
-      , loading : true // ajax 전송 시 로딩화면 출력 여부
-      , loading_mode : '' // 로딩화면 위치 center | customer
-      , loading_target : null // 로딩화면을 표시할 id 엘리먼트 없을 경우 기본 로딩화면을 출력함.
-
-      , setAjax : { }
+  send : 'ajax' // 폼 전송 방식 ajax | submit
+, formAttr : null // 폼 속성 변경할 경우 ex) action=index.html&method=get
+, filter : null // (json) 입력 상자 필터 정의
+, values : null // (string) input,select 등 입력 박스 값을 임의적으로 변경할 때 사용. ex) user_id=admin&title=가가
+, direct : null // (string) 폼 데이터를 전송하지 않고 direct 값만 전송할 경우 사용 ex) mod=insert&idx=1 (ajax 인경우만 가능)
+, param : null // (string) ajax 폼 데이터 전송할때 추가되어 함께 전송됨. (ajax 인경우만 가능)
+, prepare : null // (funciton) 액션이 실행되기 전에 초기작업 설정
+, beforeAction : null // (function) 액션 함수 최초에 호출됨.
+, beforeSend : null // (function) 폼 데이터 전송 전 호출됨.
+, afterSend : null // (function) ajax 전송 후 오류가 없을 경우(error = false) 호출됨. ajax 전송인 경우에만 사용 가능
+, ajaxComplete : null // (function) ajax 완료 후 호출됨. ajax 전송인 경우에만 사용 가능
+, redirect : null // (string) ajax 전송 후 페이지 이동 ex) index.php?test=mode 
+, ask : '' // "confirm alert" 이 출려될때 사용될 xml 참조한 메세지 (ask_msg 와 같이 사용할 수 없음) jquery.action-ko.js 파일의 message 참조하여 출력
+, ask_msg : '' // "confirm alert" 이 출력될때 사용될 임의적인 메세지 (ask 와 같이 사용할 수 없음) 변수 값 그대로 출력
+, loading : true // ajax 전송 시 로딩화면 출력 여부
+, loading_mode : '' // 로딩화면 위치 center | customer
+, loading_target : null // 로딩화면을 표시할 id 엘리먼트 없을 경우 기본 로딩화면을 출력함.
+, setAjax : { } // jQuery ajax 옵션 설정
 ```
+
+### 액션 기본 사용 예제
+
+\#form 데이터를 ajax 방식으로 전송합니다.
+
+```javascript
+function onSubmit() {
+  jQuery('#form').jaAction({ 
+    params : 'page=12', // ajax 전송에서만 사용가능하며, 전송할때 해당 파라메터도 함께 전송함.
+    ask_msg : '전송하시겠습니까?', // confirm 메세지 출력을 임의적으로 할 수 있음.
+    
+    beforeSend : function() { // 전송하기전에 호출됨.
+      alert('전송합니다.');
+    },
+    afterSend : function() { // ajax 전송에서만 사용이 가능하며, 결과값 error 가 false 인 경우에만 실행됨.
+      location.reload();
+    }
+
+  });
+}
+```
+
+```html
+<form id="form" method="post">
+<input type="text" id="test" value="" />
+<input type="button" value="저장1" onclick="onSubmit();" />
+</form>
+```
+
+### 액션 필터링을 사용한 예제
+
+
+```javascript
+function onSubmit() {
+  jQuery('#form_input').jaAction({ 
+      values : 'mod=update' // mod 인풋박스의 값을 update 변경함.
+    , formAttr : 'action=./save.html' // form 속성의 action 을 ./save.html 변경함.
+    , send : 'submit' // form 을 submit 으로 전송함.
+    , filter : [
+        // #user_id 의 값이 없거나, user_id 형식의 값이 아니고 입력길이가 2자이상 4자이하가 아닌경우 아이디 .... 메세지 alert 창을 출력함.
+        { target : "#user_id", params : "&filter=notnull&filter=user_id&length=2,4&title=아이디" }
+        // #name 최대길이 10자이상을 넘을 경우 성명 .... 메세지 alert 창을 출력합니다.
+      , { target : "#name", params : "&filter=notnull&max_length=10&title=성명" }
+      , { target : "#pwd", params : "&filter=notnull&max_length=40&title=비밀번호" }
+        // #pwd2 가 #pwd 의 값과 다를 경우 비밀번호 확인 .... 메세지 alert 창을 출력합니다.
+      , { target : "#pwd2", params : "&filter=notnull&max_length=40&#pwd=!#pwd2&title=비밀번호 확인" }
+      , { target : "#email", params : "&filter=email&title=메일" }
+      // #age 의 값이 숫자가 아니거나, 50이상으로 입력한 경우 나이 ... 메세지 alert 창을 출력합니다.
+      , { target : "#age", params : "&filter=notnull&filter=number&num=50&title=나이" }
+      , { target : "#job", params : "&filter=notnull&title=직업" }
+      // input:radio:[name=sex] 의 라디오박스 선택수가 0개인 경우 성별 ... 메세지 alert 창을 출력합니다.
+      , { target : "input:radio:[name=sex]", params : "&selected=1&title=성별" }
+      // input:radio:[name=s] 의 체크박스 선택수가 2개이상 3개이하가 아닌 경우 취미 ... 메세지 alert 창을 출력합니다.
+      , { target : "input:checkbox:[name=s]", params : "&selected=2,3&title=취미" }
+
+    ]
+    , ask : 'update' // confirm 메세지 출력
+    , beforeAction : function() { 
+      // jaAction 메서드가 실행되기 전에 beforeAction 함수를 실행함. return false; 인 경우 jaAction 종료함.
+      var ja = $.jaFilter._filtering(jQuery('input:radio:[name=is]'),'&selected=1&value=1');
+      if (ja.error) { alert("동의를 선택하세요."); return false;} 
+    }
+
+  });
+}
+```
+
+```html
+<form id="form_input" method="post" action="">
+hidden box : <input type="text" id="mod" name="mod" value="insert" />
+
+<table border="1">
+  <tr>
+    <td colspan="2"><input type="button" value="저장" onclick="onSubmit();" /></td>
+  </tr>
+  <tr>
+    <th>아이디</th>
+    <td><input type="text" id="user_id" name="user_id" /></td>
+  </tr>
+  <tr>
+    <th>이름</th>
+    <td><input type="text" id="name" name="name" /></td>
+  </tr>
+  <tr>
+    <th>비밀번호</th>
+    <td><input type="text" id="pwd" name="pwd" /></td>
+  </tr>
+  <tr>
+    <th>비밀번호 확인</th>
+    <td><input type="text" id="pwd2" name="pwd2" /></td>
+  </tr>
+  <tr>
+    <th>메일주소</th>
+    <td><input type="text" id="email" name="email" /></td>
+  </tr>
+  <tr>
+    <th>나이</th>
+    <td><input type="text" id="age" name="age" /></td>
+  </tr>
+  <tr>
+    <th>직업</th>
+    <td>
+      <select name="job" id="job">
+        <option value="">선택</option>
+        <option value="학생">학생</option>
+        <option value="회사원">회사원</option>
+        <option value="공무원">공무원</option>
+      </select>
+
+    </td>
+  </tr>
+  <tr>
+    <th>성별</th>
+    <td>
+      <input type="radio" id="sex_boy" name="sex" /> 남
+      <input type="radio" id="sex_girl" name="sex" /> 여
+    </td>
+  </tr>
+  <tr>
+    <th>취미</th>
+    <td>
+      <input type="button" value="모두선택" onclick="jQuery.ja.checked('#form_input input:checkbox:[name=s]');" />
+      <input type="checkbox" id="s1" name="s" /> 여행
+      <input type="checkbox" id="s2" name="s" /> 공부
+      <input type="checkbox" id="s3" name="s" /> 컴퓨터
+      <input type="checkbox" id="s4" name="s" /> 연애
+      <input type="checkbox" id="s5" name="s" /> 독서
+      <input type="checkbox" id="s6" name="s" /> 게임
+    </td>
+  </tr>
+  <tr>
+    <th>동의</th>
+    <td>
+      <input type="radio" id="is1" name="is" value="1" /> 동의
+      <input type="radio" id="is_ss" name="is" value="2" /> 동의안함
+      <input type="radio" id="is3" name="is" value="3" /> 모르겠음
+    </td>
+  </tr>
+</table>
+</form>
+```
+
 
