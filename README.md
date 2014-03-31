@@ -101,6 +101,32 @@ jQuery Action (이하 액션) 은 웹프로그램(혹은 HTML)에서 주기적�
 , setAjax : { } // jQuery ajax 옵션 설정
 ```
 
+### 액션 ajax Response xml 표준 양식 
+
+* 액션 폼 전송을 ajax 방식으로 전송 후 서버 측에서 response 해줄 xml 표준 양식은 아래와 같습니다.
+
+> message : 메세지
+
+> error : 에러 여부 false = 성공 , true = 실패
+
+> display : 실패인 경우 메세지 출력 방식
+
+> action : 샐패인 경우 메세지 출력 후 이벤트 처리 url = 리다이렉트 , javascript = eval(source);
+
+> source : action 에서 사용될 값
+
+```xml
+<?xml version="1.0" encoding="utf-8" ?> 
+<data>
+  <message>출력메세지</message> 
+  <error>true|false</error><!-- 오류여부 -->
+  <display>alert</display><!-- 메세지 출력방식 -->
+  <action>url|javascript</action><!-- 처리방식 -->
+  <source></source> <!-- action 사용될 소스 -->
+</data>
+```
+
+
 ### 액션 기본 사용 예제
 
 \#form 데이터를 ajax 방식으로 전송합니다.
