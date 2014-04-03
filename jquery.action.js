@@ -24,7 +24,7 @@
 ;jQuery.ja || (function($) {
 
   function ja() {
-    this.version = '2.0.8';
+    this.version = '2.0.9';
     this.lang = 'ko';
     this.regional = { };
 
@@ -447,13 +447,22 @@
 
         num = parseInt(num);
 
-        if ((len_val < num && (mode == 'min_length' || mode == 'min') ) || (len_val > num && (mode == 'max_length' || mode == 'max' ) ) )  { return false; }
-        else { return true; }
+        switch(mode) {
+          case 'min_length' : 
+          case 'min' :
+            return (len_val >= num);
+          break;
+          case 'max_length' :
+          case 'max' :
+            return (len_val <= num);
+          break;
+        }
+
       } catch (e) {
         alert('isCount : ' + e);
-        return false;
       }
 
+      return false;
     }
 
     /**
@@ -1513,9 +1522,16 @@
 
     }
     , _length : function(filter,value) {
-      var div_value = value.split(',');
-      var min = parseInt(div_value[0]);
-      var max = parseInt(div_value[1]);
+      var regx = /[0-9]+,[0-9]+$/;
+      var flag = regx.test(value);
+
+      if (flag) {
+        var div_value = value.split(',');
+        var min = parseInt(div_value[0]);
+        var max = parseInt(div_value[1]);
+      } else {
+        var min = parseInt(value);
+      }
 
       if (!isNaN(min)) {
         filter = 'min_length';
@@ -1530,7 +1546,11 @@
 
         this.ja.message = (this.ja.error) ? $.ja.regional.action.filter.length['#cdata'] : '';
       } else {
-        this.ja.message = (this.ja.error) ? $.ja.regional.action.filter.num_length['#cdata'] : '';
+        if (flag) {
+          this.ja.message = (this.ja.error) ? $.ja.regional.action.filter.length['#cdata'] : '';
+        } else {
+          this.ja.message = (this.ja.error) ? $.ja.regional.action.filter.num_length['#cdata'] : '';
+        }
       }
 
       this.ja.message = this.ja.message.replace('{$min}',min).replace('{$max}',max).replace('{$num}',min);
@@ -1552,7 +1572,7 @@
       var div_value = value.split(',');
       var min = parseInt(div_value[0]);
       var max = parseInt(div_value[1]);
-
+      
       if (isNaN(max)) { // 범위를 입력하지 않을 경우 최대값을 확인함.
         this.ja.error = (parseInt(this.value) <= min) ? false : true;
         this.ja.message = (this.ja.error) ? $.ja.regional.action.filter.max_num['#cdata'] : '';
@@ -1562,6 +1582,22 @@
         this.ja.message = (this.ja.error) ? $.ja.regional.action.filter.num['#cdata'] : '';
         this.ja.message = this.ja.message.replace('{$min}',min).replace('{$max}',max);
       }
+    }
+
+    , _minNumber : function(filter,value) {
+      var num = parseInt(this.value);
+      var chk = parseInt(value);
+      this.ja.error = (chk > num);
+      this.ja.message = (this.ja.error) ? $.ja.regional.action.filter.min_num['#cdata'] : '';
+      this.ja.message = this.ja.message.replace('{$min}',value);
+    }
+
+    , _maxNumber : function(filter,value) {
+      var num = parseInt(this.value);
+      var chk = parseInt(value);
+      this.ja.error = (chk < num);
+      this.ja.message = (this.ja.error) ? $.ja.regional.action.filter.max_num['#cdata'] : '';
+      this.ja.message = this.ja.message.replace('{$max}',value);
     }
 
     , _value : function(filter,value) {
@@ -1651,6 +1687,8 @@
           case 'max_length' : this._maxLength(go_filter,go_value); break;
           case 'length' : this._length(go_filter,go_value); break;
           case 'num' : this._num(go_filter,go_value); break;
+          case 'min_number' : this._minNumber(go_filter,go_value); break;
+          case 'max_number' : this._maxNumber(go_filter,go_value); break;
           case 'value' : this._value(go_filter,go_value); break;
           default : this._compare(go_filter,go_value); break;
         }

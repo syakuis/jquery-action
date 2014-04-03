@@ -17,6 +17,7 @@
         , min_length : { '#cdata' : '은(는) {$min}자 이상으로 입력하세요.' }
         , max_length : { '#cdata' : '은(는) {$max}자 이하로 입력하세요.' }
         , num : { '#cdata' : '은(는) {$min} 이상 {$max} 이하 수로 입력하세요.' }
+        , min_num : { '#cdata' : '은(는) {$min} 이상 수로 입력하세요.' }
         , max_num : { '#cdata' : '은(는) {$max} 이하 수로 입력하세요.' }
 
         , num_select : { '#cdata' : '은(는) {$num} 개를 선택하세요.' }
