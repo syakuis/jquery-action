@@ -4,7 +4,7 @@
 ## 소개
 * 언어 : JavaScript
 * 필수 라이브러리 : jQuery 1.3.2 이상
-* 블로그 포스트 : http://syaku.tistory.com/234
+* 블로그 : http://syaku.tistory.com/234
 * 이전 버전 : https://code.google.com/p/jquery-action
 * 이전 버전 메뉴얼 : https://docs.google.com/Doc?docid=0AWNiF48pXz7hZGZrN3hwejRfMTlrd2ttczVkYw&hl=ko
 * 공개 버전은 상단 release 에서 다운로드 하시고, 업그래이드 진행 중인 파일은 오른쪽 하단 Download ZIP 을 이용하세요.
@@ -76,7 +76,7 @@ jQuery Action (이하 액션) 은 웹프로그램(혹은 HTML)에서 주기적�
 <link rel="stylesheet" type="text/css"  href="./jquery.action.css" />
 ```
 
-### 옵션 설면
+### 옵션 설명
 
 * 필수 옵션 : 없음
 * 옵션 함수 호출 순서 : prepare , beforeAction, beforeSend, afterSend, ajaxComplete, redirect
