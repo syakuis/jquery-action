@@ -247,7 +247,7 @@ hidden box : <input type="text" id="mod" name="mod" value="insert" />
   <tr>
     <th>취미</th>
     <td>
-      <input type="button" value="모두선택" onclick="jQuery.ja.checked('#form_input input:checkbox:[name=s]');" />
+      <input type="button" value="모두선택" onclick="jQuery.ja.checked('#form_input input:checkbox[name=s]');" />
       <input type="checkbox" id="s1" name="s" /> 여행
       <input type="checkbox" id="s2" name="s" /> 공부
       <input type="checkbox" id="s3" name="s" /> 컴퓨터
