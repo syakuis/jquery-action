@@ -176,16 +176,16 @@ function onSubmit() {
       // #age 의 값이 숫자가 아니거나, 50이상으로 입력한 경우 나이 ... 메세지 alert 창을 출력합니다.
       , { target : "#age", params : "&filter=notnull&filter=number&num=50&title=나이" }
       , { target : "#job", params : "&filter=notnull&title=직업" }
-      // input:radio:[name=sex] 의 라디오박스 선택수가 0개인 경우 성별 ... 메세지 alert 창을 출력합니다.
-      , { target : "input:radio:[name=sex]", params : "&selected=1&title=성별" }
-      // input:radio:[name=s] 의 체크박스 선택수가 2개이상 3개이하가 아닌 경우 취미 ... 메세지 alert 창을 출력합니다.
-      , { target : "input:checkbox:[name=s]", params : "&selected=2,3&title=취미" }
+      // input:radio[name=sex] 의 라디오박스 선택수가 0개인 경우 성별 ... 메세지 alert 창을 출력합니다.
+      , { target : "input:radio[name=sex]", params : "&selected=1&title=성별" }
+      // input:radio[name=s] 의 체크박스 선택수가 2개이상 3개이하가 아닌 경우 취미 ... 메세지 alert 창을 출력합니다.
+      , { target : "input:checkbox[name=s]", params : "&selected=2,3&title=취미" }
 
     ]
     , ask : 'update' // confirm 메세지 출력
     , beforeAction : function() { 
       // jaAction 메서드가 실행되기 전에 beforeAction 함수를 실행함. return false; 인 경우 jaAction 종료함.
-      var ja = $.jaFilter._filtering(jQuery('input:radio:[name=is]'),'&selected=1&value=1');
+      var ja = $.jaFilter._filtering(jQuery('input:radio[name=is]'),'&selected=1&value=1');
       if (ja.error) { alert("동의를 선택하세요."); return false;} 
     }
 
