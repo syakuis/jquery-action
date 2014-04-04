@@ -5,9 +5,8 @@
 * 언어 : JavaScript
 * 필수 라이브러리 : jQuery 1.3.2 이상
 * 블로그 : http://syaku.tistory.com/234
-* 이전 버전 : https://code.google.com/p/jquery-action
-* 이전 버전 메뉴얼 : https://docs.google.com/Doc?docid=0AWNiF48pXz7hZGZrN3hwejRfMTlrd2ttczVkYw&hl=ko
-* 공개 버전은 상단 release 에서 다운로드 하시고, 업그래이드 진행 중인 파일은 오른쪽 하단 Download ZIP 을 이용하세요.
+
+* 데모 : http://syakuis.github.io/demo/jquery-action/index.html
 
 jQuery Action (이하 액션) 은 웹프로그램(혹은 HTML)에서 주기적으로 사용되는 자바스크립트 함수들을 모아 재사용이 용이하게 라이브러리화한 자바스크립트 프로그램이며, jQuery 기반으로 개발된 플러그인입니다.
 
@@ -15,6 +14,10 @@ jQuery Action (이하 액션) 은 웹프로그램(혹은 HTML)에서 주기적�
 > 파일 첨부(전송)는 지원하지 않습니다.
 
 액션은 jQuery 에 의존하므로 jQuery 1.3.2 이상 라이브러리가 필요하며, 이하버전에서도 가능하나 보장할 수 없습니다.
+
+### 2.0.7 이하 버전
+* 이전 버전 : https://code.google.com/p/jquery-action
+* 이전 버전 메뉴얼 : https://docs.google.com/Doc?docid=0AWNiF48pXz7hZGZrN3hwejRfMTlrd2ttczVkYw&hl=ko
 
 
 ##액션은 아래와 같은 기능을 제공합니다.
