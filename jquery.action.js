@@ -1296,6 +1296,7 @@
 
     // submit()
     , _submit : function() {
+        this.form.removeAttr("onsubmit");
         this.form.submit();
     }
 
