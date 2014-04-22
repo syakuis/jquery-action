@@ -1025,12 +1025,11 @@
         if (!$("body " + target).is(target)) {
           var source = $($.ja.regional.action.loading.source_nuli['#cdata']);
           $('body').append(source);
+          $('.contents',target).html($.ja.regional.action.loading.wait['#cdata']);
         }
       }
 
       target = $(target);
-
-      $('.contents',target).html($.ja.regional.action.loading.wait['#cdata']);
 
       var xy = this.offset(target.width(),target.height(),"layer");
 

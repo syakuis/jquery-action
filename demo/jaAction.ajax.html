@@ -18,12 +18,17 @@
 <link rel="stylesheet" type="text/css" charset="UTF-8" href="../jquery.action.css" />
 </head>
 <body>
+<div id="bs_loading" style="position: absolute; display:none;">임의적인 로딩화면</div>
+
 <h1><a href="index.html">jQuery Action Demo Index 이동</a></h1>
 
 <div id="example">
 <h1>Example</h1>
 <div class="html">
 <script type="text/javascript">
+
+// 로딩화면 변경
+jQuery.jaAction.setDefaults({ loading_target : '#bs_loading' });
 
 function onSubmit() {
   jQuery('#form').jaAction({ 
@@ -35,7 +40,7 @@ function onSubmit() {
       alert('전송합니다.');
     },
     afterSend : function() { // ajax 전송에서만 사용이 가능하며, 결과값 error 가 false 인 경우에만 실행됨.
-      location.reload();
+//      location.reload();
     }
 
   });
@@ -60,7 +65,7 @@ function onSubmit2() {
 
 </script>
 
-<form id="form" method="post">
+<form id="form" method="post" action="?">
 <input type="text" id="test" value="" />
 <input type="button" value="저장1" onclick="onSubmit();" />
 <input type="button" value="저장2" onclick="onSubmit2();" />
