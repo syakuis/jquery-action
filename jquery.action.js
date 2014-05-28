@@ -705,7 +705,6 @@
     */
     , result : function(ja) {
       if (!this.isEmpty(ja.message)) { 
-
         switch (ja.display) {
           case 'alert' :
             alert(ja.message);
@@ -1092,7 +1091,15 @@
       , formAttrAction : '?' // form attr action (stter is not.)
       , formAttrMethod : 'get' // form attr method (stter is not.)
       , filter : null // input filtering
-      , result : { } // action result (stter is not.)
+      , result : { 
+          message : '' 
+        , error : 'false' 
+        , action : '' 
+        , source : '' 
+        , target : '' 
+        , title : '' 
+        , display : '' 
+      } // action result (stter is not.)
       , prepare : null // only function
       , beforeAction : null // only function
       , beforeSend : null // only function
@@ -1113,7 +1120,6 @@
       , setAjax : { // jQuery ajax setting
           dataType : 'xml'
         , success : function(xml) {
-          $.jaAction._reset();
           var redirect = $.jaAction.redirect;
           var error = $.ja.defString($(xml).find('error').text(),$.jaAction.result.error);
           var action = $.ja.defString($(xml).find('action').text(),$.jaAction.result.action);
@@ -1153,18 +1159,6 @@
       }
 
     }
-
-      , _reset : function() {
-        this.result = {
-            message : '' 
-          , error : 'false' 
-          , action : '' 
-          , source : '' 
-          , target : '' 
-          , title : '' 
-          , display : '' 
-        }
-      }
 
     // form attr change
     , _formAttr : function() {
@@ -1302,8 +1296,6 @@
     // jaAction init
     , _init : function() {
 
-      this._reset();
-
       var commit = true;
       this._formAttr();
 
@@ -1363,17 +1355,14 @@
     }
 
     , setDefaults : function(settings) {
-      $.extend(true,$.jaAction._default,settings);
-      return this;
+      $.extend(true, $.jaAction._default, settings);
     }
   };
 
   // proc
   $.fn.jaAction = function(options) {
-
-    $.extend($.jaAction,$.jaAction._default,{form : this},options);
+    $.extend(true, $.jaAction,$.jaAction._default,{form : this},options);
     $.jaAction._init();
-
   };
 
 })(jQuery);
